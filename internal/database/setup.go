@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/joho/godotenv"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"lunchbunch/internal/models"
 	"net/url"
 )
 

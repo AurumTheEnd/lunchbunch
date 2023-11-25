@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	serverError "lunchbunch/internal/server/error"
-	"lunchbunch/internal/server/template_render"
+	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
 	"net/http"
 )
 

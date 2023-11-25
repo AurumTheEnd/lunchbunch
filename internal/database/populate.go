@@ -1,8 +1,8 @@
 package database
 
 import (
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
 	"gorm.io/gorm"
-	"lunchbunch/internal/models"
 )
 
 func Populate(db *gorm.DB, scraped models.RestaurantSnapshot) (err error) {

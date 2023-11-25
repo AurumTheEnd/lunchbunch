@@ -2,11 +2,11 @@ package handlers
 
 import (
 	"fmt"
-	"lunchbunch/internal/database"
-	"lunchbunch/internal/scraping"
-	"lunchbunch/internal/server/constants"
-	serverError "lunchbunch/internal/server/error"
-	"lunchbunch/internal/server/template_render"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/scraping"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
+	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
 	"net/http"
 )
 

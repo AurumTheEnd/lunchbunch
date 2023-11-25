@@ -1,10 +1,10 @@
 package database
 
 import (
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
 	"gorm.io/datatypes"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
-	"lunchbunch/internal/models"
 	"time"
 )
 

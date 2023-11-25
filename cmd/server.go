@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/sessions"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gorm.io/gorm"
-	"lunchbunch/internal/database"
-	"lunchbunch/internal/server"
-	"lunchbunch/internal/session"
 )
 
 func main() {

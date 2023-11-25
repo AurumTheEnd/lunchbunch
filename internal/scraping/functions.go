@@ -2,8 +2,8 @@ package scraping
 
 import (
 	"github.com/gocolly/colly"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
 	"gorm.io/datatypes"
-	"lunchbunch/internal/models"
 	"strconv"
 	"strings"
 	"time"

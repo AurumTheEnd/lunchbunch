@@ -1,4 +1,4 @@
-module lunchbunch
+module gitlab.fi.muni.cz/xhrdlic3/lunchbunch
 
 go 1.20
 

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"github.com/gocolly/colly"
 	"github.com/gorilla/sessions"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gorm.io/gorm"
-	"lunchbunch/internal/session"
 	"net/http"
 )
 

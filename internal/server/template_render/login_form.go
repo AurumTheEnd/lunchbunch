@@ -1,9 +1,9 @@
 package template_render
 
 import (
-	"lunchbunch/internal/server/constants"
-	serverError "lunchbunch/internal/server/error"
-	"lunchbunch/web/templates"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
+	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/web/templates"
 	"net/http"
 )
 
