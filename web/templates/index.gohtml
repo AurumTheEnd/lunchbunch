@@ -1,17 +1,10 @@
 {{template "layout" .}}
 {{define "content"}}
-<div class="index">
+<div class="d-flex flex-column justify-content-center align-items-center gap-3 text-white">
     <span class="h2">Welcome to <kbd>LunchBunchVote</kbd></span>
-{{/*    TODO switch when logged in */}}
-    <span class="index-buttons">
-		<a href="/login" class="btn btn-primary btn-lg">Login</a>
-	</span>
-    <span class="index-buttons">
-        <a href="/register" class="btn btn-primary btn-lg">Register</a>
-    </span>
-    <span class="index-buttons">
-        <a href="/logout" class="btn btn-primary btn-lg">Logout</a>
-    </span>
+    <a href="/login" class="btn btn-primary btn-lg col-3">Login</a>
+    <a href="/register" class="btn btn-primary btn-lg col-3">Register</a>
+    <a href="/logout" class="btn btn-primary btn-lg  col-3">Logout</a>
 </div>
 
 <div class="card text-center text-white all_votes_card">
