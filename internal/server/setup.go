@@ -30,12 +30,12 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 
 	mux.HandleFunc(
 		constants.IndexPath,
-		handlers.Chain(
-			appContext.ReusableHandler(appContext.GetIndex, appContext.PostIndex),
-			appContext.DisallowSubtreeWrapper(constants.IndexPath)))
-	mux.HandleFunc(constants.RegisterFormPath, appContext.ReusableHandler(appContext.GetRegisterForm, appContext.PostRegisterForm))
-	mux.HandleFunc(constants.LoginFormPath, appContext.ReusableHandler(appContext.GetLoginForm, appContext.PostLoginForm))
-	mux.HandleFunc(constants.LogoutPath, appContext.ReusableHandler(appContext.GetLogout, nil))
+		Chain(
+			ReusableHandler(appContext, appContext.GetIndex, appContext.PostIndex),
+			DisallowSubtreeWrapper(constants.IndexPath)))
+	mux.HandleFunc(constants.RegisterFormPath, ReusableHandler(appContext, appContext.GetRegisterForm, appContext.PostRegisterForm))
+	mux.HandleFunc(constants.LoginFormPath, ReusableHandler(appContext, appContext.GetLoginForm, appContext.PostLoginForm))
+	mux.HandleFunc(constants.LogoutPath, ReusableHandler(appContext, appContext.GetLogout, nil))
 
 	var server = http.Server{
 		Addr:         fmt.Sprintf("%s:%s", myEnv["SERVER_HOST"], myEnv["SERVER_PORT"]),
