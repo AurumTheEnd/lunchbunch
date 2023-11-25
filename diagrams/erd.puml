@@ -22,7 +22,7 @@ entity RestaurantSnapshot {
   --
 '  *restaurant_id: uuid <<FK>>
 '  *snapshot_id: uuid <<FK>>
-  *date: date
+  *datetime: timestamptz
 }
 
 entity Restaurant {
@@ -30,6 +30,7 @@ entity Restaurant {
   --
   *name: text
   *restaurant_snapshot_id: uuid <<FK>>
+  *voted_on: bool
 }
 
 entity MenuItem {
