@@ -29,7 +29,21 @@
 <nav class="navbar navbar-dark navbar-expand-md">
     <div class="container-fluid">
         <a href="/" class="navbar-brand mb-0 h1"><kbd>LunchBunchVote</kbd></a>
-
+        <span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    {{ if .UserData.IsAuthenticated }}
+                    <li class="nav-item"><a href="/logout" class="btn btn-outline-danger">Logout</a></li>
+                    {{else}}
+                    <li class="nav-item"><a href="/login" class="btn btn-outline-light">Login</a></li>
+                    <li class="nav-item"><a href="/register" class="btn btn-outline-light">Register</a></li>
+                    {{end}}
+                </ul>
+            </div>
+        </span>
     </div>
 </nav>
 <div class="container base-container">
