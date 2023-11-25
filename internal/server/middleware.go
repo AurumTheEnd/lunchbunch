@@ -20,11 +20,13 @@ func ReusableHandler(appContext *handlers.AppContext, getHandler AppContextHandl
 				break
 			}
 			getHandler(w, req, userData)
+			return
 		case http.MethodPost:
 			if postHandler == nil {
 				break
 			}
 			postHandler(w, req, userData)
+			return
 		}
 
 		serverError.MethodNotAllowed(w, req.Method)
