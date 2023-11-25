@@ -4,20 +4,21 @@ hide circle
 skinparam linetype ortho
 
 entity Vote {
-  *id : uuid <<generated>>
+  *id: uuid <<generated>>
   --
   *restaurant_id: uuid <<FK>>
   *poll_id: uuid <<FK>>
 }
 
-entity Poll {
-  *id : uuid <<generated>>
+entity User {
+  *id: uuid <<generated>>
   --
-  *createdAt: timestamp
+  *username: text <<unique>>
+  *password_hash: text
 }
 
 entity RestaurantSnapshot {
-  *id : uuid <<generated>>
+  *id: uuid <<generated>>
   --
 '  *restaurant_id: uuid <<FK>>
 '  *snapshot_id: uuid <<FK>>
@@ -29,15 +30,7 @@ entity Restaurant {
   --
   *name: text
   *restaurant_snapshot_id: uuid <<FK>>
-  *votes: uint
 }
-
-' TODO add after adding users
-'entity RestaurantVote {
-'  *id : uuid <<generated>>
-'  --
-'
-'}
 
 entity MenuItem {
   *id: uuid <<generated>>
@@ -51,8 +44,8 @@ Restaurant }o-up-|| RestaurantSnapshot
 'Restaurant ||-left-o{ RestaurantSnapshot
 MenuItem }o-up-|| Restaurant
 
-RestaurantSnapshot ||-o{ Poll
-Poll ||-o{ Vote
+RestaurantSnapshot ||-right-----o{ User : < creates
+User ||-o{ Vote : > casts
 Restaurant ||-o{ Vote
 
 @enduml
