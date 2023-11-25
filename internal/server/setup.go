@@ -1,6 +1,7 @@
 package server
 
 import (
+	"encoding/gob"
 	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
@@ -22,6 +23,7 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 		C:           scraping.ConfigScraper(),
 		CookieStore: store,
 	}
+	gob.Register(handlers.AppContext{})
 
 	var staticFs = http.FileServer(http.Dir("web/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static/", staticFs))
