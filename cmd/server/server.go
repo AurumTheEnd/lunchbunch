@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	var db *gorm.DB = nil
-	var store *sessions.CookieStore = nil
+	var db *gorm.DB
+	var store *sessions.CookieStore
 
 	var err = database.CreateDbIfNotExists()
 	if err != nil {
