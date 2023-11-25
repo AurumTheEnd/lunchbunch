@@ -26,10 +26,14 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 	var staticFs = http.FileServer(http.Dir("web/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static/", staticFs))
 
-	mux.HandleFunc(constants.IndexPath, appContext.IndexHandler())
-	mux.HandleFunc(constants.RegisterFormPath, appContext.RegisterHandler)
-	mux.HandleFunc(constants.LoginFormPath, appContext.LoginHandler)
-	mux.HandleFunc(constants.LogoutPath, appContext.LogoutHandler)
+	mux.HandleFunc(
+		constants.IndexPath,
+		handlers.Chain(
+			appContext.ReusableHandler(appContext.GetIndex, appContext.PostIndex),
+			appContext.DisallowSubtreeWrapper(constants.IndexPath)))
+	mux.HandleFunc(constants.RegisterFormPath, appContext.ReusableHandler(appContext.GetRegisterForm, appContext.PostRegisterForm))
+	mux.HandleFunc(constants.LoginFormPath, appContext.ReusableHandler(appContext.GetLoginForm, appContext.PostLoginForm))
+	mux.HandleFunc(constants.LogoutPath, appContext.ReusableHandler(appContext.GetLogout, nil))
 
 	var server = http.Server{
 		Addr:         fmt.Sprintf("%s:%s", myEnv["SERVER_HOST"], myEnv["SERVER_PORT"]),

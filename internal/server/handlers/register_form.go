@@ -11,27 +11,11 @@ import (
 	"net/http"
 )
 
-func (app *AppContext) RegisterHandler(w http.ResponseWriter, req *http.Request) {
-	userData, sessionErr := app.UserData(req)
-	if sessionErr != nil {
-		serverError.InternalServerError(w, sessionErr)
-	}
-
-	switch req.Method {
-	case http.MethodGet:
-		app.getRegisterForm(w, req, userData)
-	case http.MethodPost:
-		app.postRegisterForm(w, req, userData)
-	default:
-		serverError.MethodNotAllowed(w, req.Method)
-	}
-}
-
-func (app *AppContext) getRegisterForm(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
+func (app *AppContext) GetRegisterForm(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
 	template_render.RenderRegister(w, "", userData, []string{})
 }
 
-func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request, userData *session.Data) {
+func (app *AppContext) PostRegisterForm(w http.ResponseWriter, req *http.Request, userData *session.Data) {
 	var registerData = data.RegisterFormData{
 		Username:             req.FormValue("username"),
 		Password:             req.FormValue("password"),

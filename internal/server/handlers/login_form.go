@@ -11,27 +11,11 @@ import (
 	"net/http"
 )
 
-func (app *AppContext) LoginHandler(w http.ResponseWriter, req *http.Request) {
-	userData, sessionErr := app.UserData(req)
-	if sessionErr != nil {
-		serverError.InternalServerError(w, sessionErr)
-	}
-
-	switch req.Method {
-	case http.MethodGet:
-		app.getLoginForm(w, req, userData)
-	case http.MethodPost:
-		app.postLoginForm(w, req, userData)
-	default:
-		serverError.MethodNotAllowed(w, req.Method)
-	}
-}
-
-func (app *AppContext) getLoginForm(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
+func (app *AppContext) GetLoginForm(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
 	template_render.RenderLoginForm(w, "", userData, []string{})
 }
 
-func (app *AppContext) postLoginForm(w http.ResponseWriter, req *http.Request, userData *session.Data) {
+func (app *AppContext) PostLoginForm(w http.ResponseWriter, req *http.Request, userData *session.Data) {
 	var loginFormData = data.LoginFormData{
 		Username: req.FormValue("username"),
 		Password: req.FormValue("password"),
