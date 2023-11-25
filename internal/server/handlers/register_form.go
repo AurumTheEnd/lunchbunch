@@ -7,25 +7,31 @@ import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
 	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"net/http"
 )
 
 func (app *AppContext) RegisterHandler(w http.ResponseWriter, req *http.Request) {
+	userData, sessionErr := app.UserData(req)
+	if sessionErr != nil {
+		serverError.InternalServerError(w, sessionErr)
+	}
+
 	switch req.Method {
 	case http.MethodGet:
-		app.getRegisterForm(w, req)
+		app.getRegisterForm(w, req, userData)
 	case http.MethodPost:
-		app.postRegisterForm(w, req)
+		app.postRegisterForm(w, req, userData)
 	default:
 		serverError.MethodNotAllowed(w, req.Method)
 	}
 }
 
-func (app *AppContext) getRegisterForm(w http.ResponseWriter, _ *http.Request) {
-	template_render.RenderRegister(w, "", []string{})
+func (app *AppContext) getRegisterForm(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
+	template_render.RenderRegister(w, "", userData, []string{})
 }
 
-func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request) {
+func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request, userData *session.Data) {
 	var registerData = data.RegisterFormData{
 		Username:             req.FormValue("username"),
 		Password:             req.FormValue("password"),
@@ -33,7 +39,7 @@ func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request
 	}
 
 	if isError, errors := registerData.GatherFormErrors(); isError {
-		template_render.RenderRegister(w, registerData.Username, errors)
+		template_render.RenderRegister(w, registerData.Username, userData, errors)
 		return
 	}
 
@@ -49,6 +55,7 @@ func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request
 			template_render.RenderRegister(
 				w,
 				registerData.Username,
+				userData,
 				[]string{fmt.Sprintf("Username '%s' is already taken.", registerData.Username)},
 			)
 		} else {
@@ -57,10 +64,5 @@ func (app *AppContext) postRegisterForm(w http.ResponseWriter, req *http.Request
 		return
 	}
 
-	data, sessionErr := app.LogoutCookie(req, w)
-	if sessionErr != nil {
-		serverError.InternalServerError(w, sessionErr)
-	}
-
-	template_render.RenderRegisterSuccess(w, data)
+	template_render.RenderRegisterSuccess(w, userData)
 }

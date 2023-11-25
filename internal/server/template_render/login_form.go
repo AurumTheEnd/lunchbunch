@@ -3,6 +3,7 @@ package template_render
 import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
 	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/web/templates"
 	"net/http"
 )
@@ -15,7 +16,7 @@ type LoginFormTemplate struct {
 	Errors       []string
 }
 
-func RenderLoginForm(w http.ResponseWriter, username string, errors []string) {
+func RenderLoginForm(w http.ResponseWriter, username string, userData *session.Data, errors []string) {
 	var parsedTemplate, parseErr = templates.ParseTemplateWithLayout("login_form")
 	if parseErr != nil {
 		serverError.InternalServerError(w, parseErr)
@@ -25,6 +26,7 @@ func RenderLoginForm(w http.ResponseWriter, username string, errors []string) {
 	var data = LoginFormTemplate{
 		LayoutTemplate: LayoutTemplate{
 			PageTitle: "Login",
+			UserData:  *userData,
 		},
 		Errors:       errors,
 		Username:     username,

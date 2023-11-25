@@ -16,9 +16,10 @@ func (app *AppContext) LogoutHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func (app *AppContext) getLogout(w http.ResponseWriter, req *http.Request) {
-	data, err := app.LogoutCookie(req, w)
+	userData, err := app.LogoutCookie(req, w)
 	if err != nil {
 		serverError.InternalServerError(w, err)
 	}
-	template_render.RenderLogoutSuccess(w, data)
+
+	template_render.RenderLogoutSuccess(w, userData)
 }

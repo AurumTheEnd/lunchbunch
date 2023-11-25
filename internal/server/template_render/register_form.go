@@ -3,6 +3,7 @@ package template_render
 import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/web/templates"
 	"net/http"
 )
@@ -15,7 +16,7 @@ type RegisterFormTemplate struct {
 	Errors       []string
 }
 
-func RenderRegister(w http.ResponseWriter, usernamePrefill string, errors []string) {
+func RenderRegister(w http.ResponseWriter, usernamePrefill string, userData *session.Data, errors []string) {
 	var parsedTemplate, parseErr = templates.ParseTemplateWithLayout("register_form")
 	if parseErr != nil {
 		error.InternalServerError(w, parseErr)
@@ -25,6 +26,7 @@ func RenderRegister(w http.ResponseWriter, usernamePrefill string, errors []stri
 	var data = RegisterFormTemplate{
 		LayoutTemplate: LayoutTemplate{
 			PageTitle: "Register",
+			UserData:  *userData,
 		},
 		Username:     usernamePrefill,
 		Errors:       errors,
