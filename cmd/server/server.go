@@ -7,11 +7,14 @@ import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gorm.io/gorm"
+	"log"
 )
 
 func main() {
 	var db *gorm.DB
 	var store *sessions.CookieStore
+
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	var err = database.CreateDbIfNotExists()
 	if err != nil {
