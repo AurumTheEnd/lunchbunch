@@ -1,0 +1,58 @@
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+entity Vote {
+  *id : uuid <<generated>>
+  --
+  *restaurant_id: uuid <<FK>>
+  *poll_id: uuid <<FK>>
+}
+
+entity Poll {
+  *id : uuid <<generated>>
+  --
+  *createdAt: timestamp
+}
+
+entity RestaurantSnapshot {
+  *id : uuid <<generated>>
+  --
+'  *restaurant_id: uuid <<FK>>
+'  *snapshot_id: uuid <<FK>>
+  *date: date
+}
+
+entity Restaurant {
+  *id: uuid <<generated>>
+  --
+  *name: text
+  *restaurant_snapshot_id: uuid <<FK>>
+  *votes: uint
+}
+
+' TODO add after adding users
+'entity RestaurantVote {
+'  *id : uuid <<generated>>
+'  --
+'
+'}
+
+entity MenuItem {
+  *id: uuid <<generated>>
+  --
+  *restaurant_id: uuid <<FK>>
+  *name: text
+  price: money
+}
+
+Restaurant }o-up-|| RestaurantSnapshot
+'Restaurant ||-left-o{ RestaurantSnapshot
+MenuItem }o-up-|| Restaurant
+
+RestaurantSnapshot ||-o{ Poll
+Poll ||-o{ Vote
+Restaurant ||-o{ Vote
+
+@enduml

@@ -1,0 +1,146 @@
+body {
+    background-color: #112D4E !important;
+}
+
+nav {
+    background-color: #3F72AF !important;
+}
+
+.card {
+    background-color: #3F72AF !important;
+}
+
+.accordion-button,.accordion-item {
+    background-color: #3F72AF !important;
+    color: white!important;
+}
+
+.accordion-arrow button:focus {
+    outline: none;
+    box-shadow: none;
+    color: white;
+}
+
+.accordion-arrow button {
+    color: white;
+}
+
+.accordion-arrow button::after {
+    display: none;
+}
+
+.accordion-arrow p {
+    width: 100%;
+    margin: 0;
+}
+
+.voters-dropdown-icon {
+    margin-left: 7px;
+    margin-right: 7px;
+    color: white;
+}
+
+.footer-voters {
+    padding: 0!important;
+}
+
+.card.text-center {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.all_votes_card {
+    transition: 0.3s;
+}
+
+.all_votes_card:hover {
+    background-color: #112D4E !important;
+}
+
+.index {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.index-buttons {
+    margin-top: 15px;
+}
+
+.content-inside {
+    padding-top: 30px;
+    padding-bottom: 75px;
+}
+
+#restaurants li {
+    display: inline-block;
+    width: 17em;
+}
+
+.auth-form {
+    display: flex;
+    justify-content: center;
+}
+
+.auth-form form {
+    width: 80%;
+}
+
+li.nav-item {
+    margin: 5px;
+}
+
+#remember {
+    margin-bottom: 8px;
+}
+
+li.nav-item a {
+    width: 90px!important;
+}
+
+.index-buttons a {
+	width: 180px!important;
+}
+
+.index-welcome {
+	text-align: center;
+}
+
+.card-body ul {
+    padding-left: 0;
+}
+
+.timetable-day {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.progress-bar {
+    transition: 0.5s;
+}
+
+.whole-page-button {
+    padding: 20px!important;
+    font-size: 20px!important;
+    border-radius: 0!important;
+    width: 100% !important;
+}
+
+.chosen-container {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 5px white solid;
+}
+
+.chosen-choices {
+    border: 0 !important;
+
+}
+
+.chosen-container-active .chosen-choices {
+    border: 0 !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}

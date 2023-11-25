@@ -1,0 +1,35 @@
+{{template "layout" .}}
+{{define "content"}}
+<div class="index">
+    <span class="h2">Welcome to <kbd>LunchBunchVote</kbd></span>
+{{/*    TODO switch when logged in */}}
+    <span class="index-buttons">
+		<a href="/login" class="btn btn-primary btn-lg">Login</a>
+	</span>
+    <span class="index-buttons">
+        <a href="/register" class="btn btn-primary btn-lg">Register</a>
+    </span>
+    <span class="index-buttons">
+        <a href="/logout" class="btn btn-primary btn-lg">Logout</a>
+    </span>
+</div>
+
+<div class="card text-center text-white all_votes_card">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+        {{ .Snapshot.TotalVotes }}
+        {{ .Snapshot.TotalVotesString }}
+    </span>
+    <h5 class="card-header">
+        {{ .Today }}
+    </h5>
+    <div class="card-body">
+        {{ range .Snapshot.Restaurants }}
+            <div>{{.Name}}</div>
+        {{end}}
+        <a href="/lunch_voting/poll/show/" class="stretched-link"></a>
+    </div>
+    <div class="card-footer">
+        Created by blank
+    </div>
+</div>
+{{end}}

@@ -1,0 +1,16 @@
+{{template "layout" .}}
+{{define "content"}}
+    <div class="card text-center text-white p-3 d-flex flex-column gap-3 align-items-center">
+        <div>{{ .Message }}</div>
+
+        <div>You will be redirected to the home page in under 5 seconds...</div>
+        <meta http-equiv="refresh" content="5; url=/" />
+
+        <span class="d-flex flex-row gap-3">
+            <a href="/" class="btn btn-primary">Return home</a>
+            {{ if ne .ButtonUrl "" }}
+                <a href="{{ .ButtonUrl }}" class="btn btn-primary">{{ .ButtonText }}</a>
+            {{end}}
+        </span>
+    </div>
+{{end}}

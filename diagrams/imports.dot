@@ -1,0 +1,178 @@
+digraph {
+	labelloc="t";
+	label="lunchbunch";
+	rankdir="TB";
+	node [shape="rect"];
+	subgraph cluster26 {
+		label="/internal/server";
+		style="filled";
+		fillcolor="#ffffff";
+		n43 [label="/internal/server/setup.go", style="filled", fillcolor="#ffffff"];
+		// Exports: StartServer
+	}
+	subgraph cluster28 {
+		label="/internal/server/handlers";
+		style="filled";
+		fillcolor="#ffffff";
+		n50 [label="/internal/server/handlers/login_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: LoginHandler
+		n55 [label="/internal/server/handlers/logout.go", style="filled", fillcolor="#ffffff"];
+		// Exports: LogoutHandler
+		n56 [label="/internal/server/handlers/register_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: RegisterHandler
+		n44 [label="/internal/server/handlers/appcontext.go", style="filled", fillcolor="#ffffff"];
+		// Exports: AppContext, LoginCookie, LogoutCookie, IsAuthenticated
+		n47 [label="/internal/server/handlers/index.go", style="filled", fillcolor="#ffffff"];
+		// Exports: IndexHandler
+	}
+	subgraph cluster32 {
+		label="/internal/server/template_render";
+		style="filled";
+		fillcolor="#ffffff";
+		n52 [label="/internal/server/template_render/login_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: LoginFormTemplate, RenderLoginForm
+		n58 [label="/internal/server/template_render/register_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: RegisterFormTemplate, RenderRegister
+		n51 [label="/internal/server/template_render/auth_success.go", style="filled", fillcolor="#ffffff"];
+		// Exports: AuthSuccessTemplate, RenderLogoutSuccess, RenderRegisterSuccess, RenderLoginSuccess
+		n59 [label="/internal/server/template_render/layout.go", style="filled", fillcolor="#ffffff"];
+		// Exports: LayoutTemplate
+		n49 [label="/internal/server/template_render/index.go", style="filled", fillcolor="#ffffff"];
+		// Exports: IndexTemplate, RenderIndex
+	}
+	subgraph cluster39 {
+		label="/internal/server/auth";
+		style="filled";
+		fillcolor="#ffffff";
+		n53 [label="/internal/server/auth/utils.go", style="filled", fillcolor="#ffffff"];
+		// Exports: HashPassword, IsPasswordHashSame
+	}
+	subgraph cluster27 {
+		label="/internal/server/constants";
+		style="filled";
+		fillcolor="#ffffff";
+		n46 [label="/internal/server/constants/constants.go", style="filled", fillcolor="#ffffff"];
+	}
+	subgraph cluster41 {
+		label="/internal/server/data";
+		style="filled";
+		fillcolor="#ffffff";
+		n54 [label="/internal/server/data/login_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: GatherFormErrors, LoginFormData
+		n57 [label="/internal/server/data/register_form.go", style="filled", fillcolor="#ffffff"];
+		// Exports: RegisterFormData, GatherFormErrors
+	}
+	subgraph cluster34 {
+		label="/internal/session";
+		style="filled";
+		fillcolor="#ffffff";
+		n60 [label="/internal/session/setup.go", style="filled", fillcolor="#ffffff"];
+		// Exports: CreateSessionStore
+		n45 [label="/internal/session/models.go", style="filled", fillcolor="#ffffff"];
+		// Exports: Data
+	}
+	subgraph cluster5 {
+		label="/internal/models";
+		style="filled";
+		fillcolor="#ffffff";
+		n19 [label="/internal/models/methods.go", style="filled", fillcolor="#ffffff"];
+		// Exports: TotalVotes, TotalVotesString
+		n16 [label="/internal/models/models.go", style="filled", fillcolor="#ffffff"];
+		// Exports: Restaurant, MenuItem, User, RestaurantSnapshot
+	}
+	subgraph cluster30 {
+		label="/internal/server/error";
+		style="filled";
+		fillcolor="#ffffff";
+		n48 [label="/internal/server/error/errors.go", style="filled", fillcolor="#ffffff"];
+		// Exports: MethodNotAllowed, InternalServerError
+	}
+	subgraph cluster1 {
+		label="/internal/database";
+		style="filled";
+		fillcolor="#ffffff";
+		n14 [label="/internal/database/errors.go", style="filled", fillcolor="#ffffff"];
+		// Exports: IsUniqueViolation, IsRecordNotFound, DayAlreadyPopulatedError, Error
+		n15 [label="/internal/database/populate.go", style="filled", fillcolor="#ffffff"];
+		// Exports: Populate
+		n17 [label="/internal/database/repo.go", style="filled", fillcolor="#ffffff"];
+		// Exports: DoesTodayHaveSnapshot, DoesDayHaveSnapshot, UpsertScraped, SelectTodaysSnapshot, CreateUser, GetUser
+		n18 [label="/internal/database/setup.go", style="filled", fillcolor="#ffffff"];
+		// Exports: CreateDbIfNotExists, Setup
+	}
+	subgraph cluster20 {
+		label="/internal/scraping";
+		style="filled";
+		fillcolor="#ffffff";
+		n24 [label="/internal/scraping/setup.go", style="filled", fillcolor="#ffffff"];
+		// Exports: ConfigScraper
+		n25 [label="/internal/scraping/functions.go", style="filled", fillcolor="#ffffff"];
+		// Exports: Scrape
+	}
+	n25 -> n16 [color="#000000"];
+	// References: models.RestaurantSnapshot, models.Restaurant, models.MenuItem
+	n56 -> n58 [color="#000000"];
+	// References: template_render.RenderRegister
+	n56 -> n51 [color="#000000"];
+	// References: template_render.RenderRegisterSuccess
+	n56 -> n17 [color="#000000"];
+	// References: database.CreateUser
+	n56 -> n14 [color="#000000"];
+	// References: database.IsUniqueViolation
+	n56 -> n53 [color="#000000"];
+	// References: auth.HashPassword
+	n56 -> n57 [color="#000000"];
+	// References: data.RegisterFormData
+	n56 -> n48 [color="#000000"];
+	// References: error.MethodNotAllowed, error.InternalServerError
+	n58 -> n48 [color="#000000"];
+	// References: error.InternalServerError
+	n44 -> n45 [color="#000000"];
+	// References: session.Data
+	n50 -> n54 [color="#000000"];
+	// References: data.LoginFormData
+	n50 -> n48 [color="#000000"];
+	// References: error.MethodNotAllowed, error.InternalServerError
+	n50 -> n51 [color="#000000"];
+	// References: template_render.RenderLoginSuccess
+	n50 -> n52 [color="#000000"];
+	// References: template_render.RenderLoginForm
+	n50 -> n17 [color="#000000"];
+	// References: database.GetUser
+	n50 -> n14 [color="#000000"];
+	// References: database.IsRecordNotFound
+	n50 -> n53 [color="#000000"];
+	// References: auth.IsPasswordHashSame
+	n17 -> n16 [color="#000000"];
+	// References: models.User, models.RestaurantSnapshot
+	n55 -> n48 [color="#000000"];
+	// References: error.MethodNotAllowed
+	n55 -> n51 [color="#000000"];
+	// References: template_render.RenderLogoutSuccess
+	n43 -> n24 [color="#000000"];
+	// References: scraping.ConfigScraper
+	n43 -> n44 [color="#000000"];
+	// References: handlers.AppContext
+	n47 -> n17 [color="#000000"];
+	// References: database.SelectTodaysSnapshot, database.UpsertScraped
+	n47 -> n25 [color="#000000"];
+	// References: scraping.Scrape
+	n47 -> n48 [color="#000000"];
+	// References: error.MethodNotAllowed, error.InternalServerError
+	n47 -> n49 [color="#000000"];
+	// References: template_render.RenderIndex
+	n49 -> n16 [color="#000000"];
+	// References: models.RestaurantSnapshot
+	n49 -> n48 [color="#000000"];
+	// References: error.InternalServerError
+	n15 -> n16 [color="#000000"];
+	// References: models.RestaurantSnapshot
+	n18 -> n16 [color="#000000"];
+	// References: models.RestaurantSnapshot, models.Restaurant, models.MenuItem, models.User
+	n59 -> n45 [color="#000000"];
+	// References: session.Data
+	n51 -> n48 [color="#000000"];
+	// References: error.InternalServerError
+	n52 -> n48 [color="#000000"];
+	// References: error.InternalServerError
+}
