@@ -40,8 +40,8 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 	var server = http.Server{
 		Addr:         fmt.Sprintf("%s:%s", myEnv["SERVER_HOST"], myEnv["SERVER_PORT"]),
 		Handler:      mux,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		ReadTimeout:  100 * time.Second,
+		WriteTimeout: 100 * time.Second,
 	}
 
 	log.Printf("Running server at %s", server.Addr)
