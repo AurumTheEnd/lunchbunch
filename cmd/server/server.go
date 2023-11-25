@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"github.com/gorilla/sessions"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
@@ -28,6 +29,7 @@ func main() {
 		return
 	}
 
+	gob.Register(&session.Data{})
 	store, err = session.CreateSessionStore()
 	if err != nil {
 		fmt.Println(err)

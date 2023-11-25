@@ -3,7 +3,6 @@ package session
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"encoding/gob"
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
 )
