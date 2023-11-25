@@ -41,7 +41,7 @@ func (app *AppContext) getIndex(w http.ResponseWriter, _ *http.Request) {
 	template_render.RenderIndex(w, result)
 }
 
-func (app *AppContext) postIndex(w http.ResponseWriter, req *http.Request) {
+func (app *AppContext) postIndex(w http.ResponseWriter, _ *http.Request) {
 	var snapshot, scrapeError = scraping.Scrape(app.C)
 	if scrapeError != nil {
 		fmt.Println(scrapeError)

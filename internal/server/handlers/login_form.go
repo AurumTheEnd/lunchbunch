@@ -21,7 +21,7 @@ func (app *AppContext) LoginHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func (app *AppContext) getLoginForm(w http.ResponseWriter, req *http.Request) {
+func (app *AppContext) getLoginForm(w http.ResponseWriter, _ *http.Request) {
 	template_render.RenderLoginForm(w, "", []string{})
 }
 
