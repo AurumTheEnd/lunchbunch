@@ -2,9 +2,11 @@
 {{define "content"}}
 <div class="d-flex flex-column justify-content-center align-items-center gap-3 text-white">
     <span class="h2">Welcome to <kbd>LunchBunchVote</kbd></span>
+    {{ if not .UserData.IsAuthenticated }}
+    <span>You need to be logged in or registered before continuing.</span>
     <a href="/login" class="btn btn-primary btn-lg col-3">Login</a>
     <a href="/register" class="btn btn-primary btn-lg col-3">Register</a>
-    <a href="/logout" class="btn btn-primary btn-lg  col-3">Logout</a>
+    {{end}}
 </div>
 
 <div class="card text-center text-white all_votes_card">
