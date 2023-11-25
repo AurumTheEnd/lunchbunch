@@ -36,7 +36,12 @@ func CreateSessionStore() (store *sessions.CookieStore, err error) {
 		encrypt,
 	)
 
-	gob.Register(Data{})
+	store.Options = &sessions.Options{
+		Domain:   myEnv["SERVER_HOST"],
+		Path:     "/",
+		MaxAge:   3600 * 8, // 8 hours
+		HttpOnly: true,
+	}
 
 	return
 }
