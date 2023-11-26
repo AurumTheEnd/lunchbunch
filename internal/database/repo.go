@@ -25,8 +25,9 @@ func HasDayBeenPopulated(db *gorm.DB, timestamp time.Time) (answer bool) {
 	return snapshot.ID != 0
 }
 
-func CreateScraped(db *gorm.DB, scraped models.RestaurantSnapshot) error {
-	var result = db.Create(&scraped)
+func CreateScraped(db *gorm.DB, scraped *models.RestaurantSnapshot) error {
+	var result = db.Create(scraped).
+		Clauses(clause.Returning{})
 
 	if result.Error != nil {
 		return result.Error
