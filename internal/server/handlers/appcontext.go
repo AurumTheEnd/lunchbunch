@@ -55,18 +55,6 @@ func (app *AppContext) LogoutCookie(req *http.Request, w http.ResponseWriter) (*
 	return data, nil
 }
 
-func (app *AppContext) IsAuthenticated(req *http.Request) (bool, error) {
-	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
-	// ignoring error because Get generates a new session
-	// if getError != nil {
-	// 	 return nil, getError
-	// }
-
-	var userData, ok = s.Values[session.AuthenticationStoreKey].(session.Data)
-
-	return !ok || !userData.IsAuthenticated, nil
-}
-
 func (app *AppContext) UserData(req *http.Request) *session.Data {
 	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
