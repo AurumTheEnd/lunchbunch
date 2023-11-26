@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/gojp/goreportcard)](https://goreportcard.com/report/gojp/goreportcard)
+[![Go Report Card](https://goreportcard.com/report/gitlab.fi.muni.cz/xhrdlic3/lunchbunch)](https://goreportcard.com/report/gitlab.fi.muni.cz/xhrdlic3/lunchbunch)
 
 # LunchBunch
 
