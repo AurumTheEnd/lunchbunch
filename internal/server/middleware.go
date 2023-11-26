@@ -7,6 +7,7 @@ import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"net/http"
+	"strings"
 )
 
 type Middleware func(http.HandlerFunc) http.HandlerFunc
@@ -45,6 +46,26 @@ func DisallowSubtreeWrapper(permittedPath string) Middleware {
 		return func(w http.ResponseWriter, req *http.Request) {
 			if req.URL.Path != permittedPath {
 				http.NotFound(w, req)
+				return
+			}
+
+			nextMiddleWare(w, req)
+		}
+	}
+}
+
+func AllowIdSuffixOnly(prefix string) Middleware {
+	return func(nextMiddleWare http.HandlerFunc) http.HandlerFunc {
+		return func(w http.ResponseWriter, req *http.Request) {
+			var path = req.URL.Path
+			if !strings.HasPrefix(path, prefix) {
+				utils.InternalServerError(w, errors.New(fmt.Sprintf("request path '%s' doesn't start with prefix '%s' to strip", path, prefix)))
+				return
+			}
+
+			var _, convertErr = utils.TrimPathToUint(path, prefix)
+			if convertErr != nil {
+				utils.BadRequestError(w, convertErr)
 				return
 			}
 
