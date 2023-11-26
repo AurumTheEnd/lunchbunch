@@ -6,6 +6,9 @@ type RestaurantSnapshot struct {
 	ID   uint           `gorm:"primaryKey"`
 	Date datatypes.Date `gorm:"uniqueIndex,sort:desc"`
 
+	CreatorID uint
+	Creator   User
+
 	Restaurants []Restaurant `gorm:"foreignKey:RestaurantSnapshotID"`
 }
 
