@@ -13,17 +13,14 @@
     {{end}}
     <div>
         <label for="username" class="form-label text-white"> Username </label>
-{{/*             minlength="8" maxlength="72" required*/}}
         <input type="text" id="username" name="username" class="form-control" value="{{ .Username }}">
     </div>
     <div>
         <label for="password" class="form-label text-white"> Password </label>
-{{/*            minlength="8" maxlength="72" required*/}}
         <input type="password" id="password" name="password" class="form-control" >
     </div>
     <div>
         <label for="password_confirmation" class="form-label text-white"> Repeat the password </label>
-{{/*            minlength="8" maxlength="72" required*/}}
         <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" >
     </div>
     <button type="submit" class="btn btn-primary mt-2">Register!</button>
