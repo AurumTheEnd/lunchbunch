@@ -8,22 +8,10 @@ import (
 	"time"
 )
 
-func DoesTodayHaveSnapshot(db *gorm.DB) bool {
-	return HasDayBeenPopulated(db, time.Now())
-}
-
 func dayBoundaries(t time.Time) (dayStart time.Time, dayEnd time.Time) {
 	dayStart = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
 	dayEnd = time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 999999999, t.Location())
 	return
-}
-
-func HasDayBeenPopulated(db *gorm.DB, timestamp time.Time) (answer bool) {
-	var snapshot models.RestaurantSnapshot
-	var dayStart, dayEnd = dayBoundaries(timestamp)
-
-	db.Where("datetime >= ?", dayStart).Where("datetime <= ?", dayEnd).First(&snapshot)
-	return snapshot.ID != 0
 }
 
 func CreateScraped(db *gorm.DB, scraped *models.RestaurantSnapshot) error {
