@@ -3,7 +3,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center gap-3 text-white">
     <span class="h2">Welcome to <kbd>LunchBunch</kbd></span>
     {{ if not .UserData.IsAuthenticated }}
-    <span>You need to be logged in or registered before continuing.</span>
+    <span>You need to be registered and logged in before continuing.</span>
     <a href="/login" class="btn btn-primary btn-lg col-3">Login</a>
     <a href="/register" class="btn btn-primary btn-lg col-3">Register</a>
     {{end}}
