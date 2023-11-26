@@ -6,16 +6,14 @@ import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/web/templates"
 	"net/http"
-	"time"
 )
 
 type IndexTemplate struct {
 	LayoutTemplate
-	Snapshot models.RestaurantSnapshot
-	Today    string
+	Snapshots []models.RestaurantSnapshot
 }
 
-func RenderIndex(w http.ResponseWriter, model models.RestaurantSnapshot, userData *session.Data) {
+func RenderIndex(w http.ResponseWriter, model []models.RestaurantSnapshot, userData *session.Data) {
 	var parsedTemplate, parseErr = templates.ParseTemplateWithLayout("index")
 	if parseErr != nil {
 		serverError.InternalServerError(w, parseErr)
@@ -27,8 +25,7 @@ func RenderIndex(w http.ResponseWriter, model models.RestaurantSnapshot, userDat
 			PageTitle: "Menu Voting",
 			UserData:  *userData,
 		},
-		Snapshot: model,
-		Today:    time.Time(model.Date).Format(time.DateOnly),
+		Snapshots: model,
 	}
 
 	if renderError := parsedTemplate.Execute(w, data); renderError != nil {

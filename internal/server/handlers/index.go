@@ -9,7 +9,7 @@ import (
 )
 
 func (app *AppContext) GetIndex(w http.ResponseWriter, _ *http.Request, userData *session.Data) {
-	var result, dbError = database.SelectTodaysSnapshot(app.Db)
+	var result, dbError = database.SelectTodaysSnapshots(app.Db)
 	if dbError != nil {
 		serverError.InternalServerError(w, dbError)
 	}
