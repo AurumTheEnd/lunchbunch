@@ -3,10 +3,10 @@ package handlers
 import (
 	"fmt"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
-	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/auth"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
 	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"net/http"
 )
@@ -41,7 +41,7 @@ func (app *AppContext) PostLoginForm(w http.ResponseWriter, req *http.Request, u
 		return
 	}
 
-	if !auth.IsPasswordHashSame(loginFormData.Password, user.PasswordHash) {
+	if !utils.IsPasswordHashSame(loginFormData.Password, user.PasswordHash) {
 		template_render.RenderLoginForm(w, loginFormData.Username, userData, []string{"Password is invalid."})
 		return
 	}

@@ -3,10 +3,10 @@ package handlers
 import (
 	"fmt"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
-	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/auth"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
 	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"net/http"
 )
@@ -27,7 +27,7 @@ func (app *AppContext) PostRegisterForm(w http.ResponseWriter, req *http.Request
 		return
 	}
 
-	var hashedPassword, hashError = auth.HashPassword(registerData.Password)
+	var hashedPassword, hashError = utils.HashPassword(registerData.Password)
 	if hashError != nil {
 		serverError.InternalServerError(w, hashError)
 		return
