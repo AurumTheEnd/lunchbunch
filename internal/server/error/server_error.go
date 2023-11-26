@@ -19,3 +19,8 @@ func UnauthorizedError(w http.ResponseWriter, err error) {
 	log.Println(err)
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
 }
+
+func BadRequestError(w http.ResponseWriter, err error) {
+	log.Println(err)
+	http.Error(w, "Bad request", http.StatusBadRequest)
+}
