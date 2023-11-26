@@ -1,13 +1,15 @@
 package models
 
+import "time"
+
 func (receiver RestaurantSnapshot) TotalVotes() (total uint) {
 	total = 0
 
 	for _, restaurant := range receiver.Restaurants {
-		total += restaurant.Votes
+		total += uint(len(restaurant.Votes))
 	}
 
-	return
+	return total
 }
 
 func (receiver RestaurantSnapshot) TotalVotesString() string {
