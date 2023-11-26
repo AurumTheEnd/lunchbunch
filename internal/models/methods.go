@@ -17,3 +17,7 @@ func (receiver RestaurantSnapshot) TotalVotesString() string {
 
 	return "votes"
 }
+
+func (receiver RestaurantSnapshot) DateTimeCreated() string {
+	return receiver.Datetime.Format(time.DateTime)
+}

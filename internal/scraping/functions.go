@@ -3,14 +3,13 @@ package scraping
 import (
 	"github.com/gocolly/colly"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
-	"gorm.io/datatypes"
 	"strconv"
 	"strings"
 	"time"
 )
 
 func Scrape(c *colly.Collector) (result models.RestaurantSnapshot, err error) {
-	result.Date = datatypes.Date(time.Now())
+	result.Datetime = time.Now()
 	result.Restaurants, err = parseRestaurants(c)
 	return
 }

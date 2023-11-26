@@ -1,10 +1,12 @@
 package models
 
-import "gorm.io/datatypes"
+import (
+	"time"
+)
 
 type RestaurantSnapshot struct {
-	ID   uint           `gorm:"primaryKey"`
-	Date datatypes.Date `gorm:"uniqueIndex,sort:desc"`
+	ID       uint `gorm:"primaryKey"`
+	Datetime time.Time
 
 	CreatorID uint
 	Creator   User

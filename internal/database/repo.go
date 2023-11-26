@@ -2,20 +2,27 @@ package database
 
 import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/models"
-	"gorm.io/datatypes"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"time"
 )
 
 func DoesTodayHaveSnapshot(db *gorm.DB) bool {
-	return DoesDayHaveSnapshot(db, datatypes.Date(time.Now()))
+	return HasDayBeenPopulated(db, time.Now())
 }
 
-func DoesDayHaveSnapshot(db *gorm.DB, date datatypes.Date) bool {
-	var snapshot models.RestaurantSnapshot
+func dayBoundaries(t time.Time) (dayStart time.Time, dayEnd time.Time) {
+	dayStart = time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+	dayEnd = time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 999999999, t.Location())
+	return
+}
 
-	db.Where("datetime = ?", date).Take(&snapshot)
+func HasDayBeenPopulated(db *gorm.DB, timestamp time.Time) (answer bool) {
+	var snapshot models.RestaurantSnapshot
+	var dayStart, dayEnd = dayBoundaries(timestamp)
+
+	db.Where("datetime >= ?", dayStart).Where("datetime <= ?", dayEnd).First(&snapshot)
+	fmt.Println(snapshot)
 	return snapshot.ID != 0
 }
 
@@ -29,12 +36,20 @@ func UpsertScraped(db *gorm.DB, scraped models.RestaurantSnapshot) error {
 	return nil
 }
 
-func SelectTodaysSnapshot(db *gorm.DB) (models.RestaurantSnapshot, error) {
-	var today = datatypes.Date(time.Now())
-	var snapshot = models.RestaurantSnapshot{Date: today}
-	var result = db.Preload("Restaurants.MenuItems").Preload(clause.Associations).Find(&snapshot)
+func SelectTodaysSnapshots(db *gorm.DB) ([]models.RestaurantSnapshot, error) {
+	var timestamp = time.Now()
+	var dayStart, dayEnd = dayBoundaries(timestamp)
+	var snapshots []models.RestaurantSnapshot
 
-	return snapshot, result.Error
+	var result = db.
+		Preload("Restaurants.MenuItems").
+		Preload("Restaurants.Votes").
+		Preload(clause.Associations).
+		Where("datetime >= ?", dayStart).
+		Where("datetime <= ?", dayEnd).
+		Find(&snapshots)
+
+	return snapshots, result.Error
 }
 
 func CreateUser(db *gorm.DB, username string, passwordHash string) error {
