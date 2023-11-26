@@ -29,22 +29,20 @@
 <nav class="navbar navbar-dark navbar-expand-md">
     <div class="container-fluid">
         <a href="/" class="navbar-brand mb-0 h1"><kbd>LunchBunch</kbd></a>
-        <span>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    {{ if .UserData.IsAuthenticated }}
-                    <li class="nav-item"><a href="/poll/new" class="btn btn-success">New&nbsp;poll</a></li>
-                    <li class="nav-item"><a href="/logout" class="btn btn-outline-danger">Logout</a></li>
-                    {{else}}
-                    <li class="nav-item"><a href="/login" class="btn btn-outline-light">Login</a></li>
-                    <li class="nav-item"><a href="/register" class="btn btn-outline-light">Register</a></li>
-                    {{end}}
-                </ul>
-            </div>
-        </span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-md-end mt-2" id="navbarNav">
+            <ul class="navbar-nav d-flex flex-column flex-md-row align-items-end gap-2">
+                {{ if .UserData.IsAuthenticated }}
+                <li class="nav-item"><a href="/poll/new" class="btn col-2 btn-success">New&nbsp;poll</a></li>
+                <li class="nav-item"><a href="/logout" class="btn btn-outline-danger">Logout</a></li>
+                {{else}}
+                <li class="nav-item"><a href="/login" class="btn btn-outline-light">Login</a></li>
+                <li class="nav-item"><a href="/register" class="btn btn-outline-light">Register</a></li>
+                {{end}}
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container base-container">

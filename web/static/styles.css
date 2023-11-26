@@ -88,16 +88,12 @@ nav {
     width: 80%;
 }
 
-li.nav-item {
-    margin: 5px;
-}
-
 #remember {
     margin-bottom: 8px;
 }
 
 li.nav-item a {
-    width: 90px!important;
+    width: 90px !important;
 }
 
 .index-buttons a {
