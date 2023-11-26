@@ -57,7 +57,7 @@ func Setup() (db *gorm.DB, err error) {
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
-	err = db.AutoMigrate(&models.RestaurantSnapshot{}, &models.Restaurant{}, &models.MenuItem{}, &models.User{})
+	err = db.AutoMigrate(&models.RestaurantSnapshot{}, &models.Restaurant{}, &models.MenuItem{}, &models.User{}, &models.Vote{})
 
 	return
 }

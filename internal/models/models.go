@@ -10,12 +10,13 @@ type RestaurantSnapshot struct {
 }
 
 type Restaurant struct {
-	ID    uint   `gorm:"primaryKey"`
-	Name  string `gorm:"index"`
-	Votes uint   `gorm:"default:0"`
+	ID      uint   `gorm:"primaryKey"`
+	Name    string `gorm:"index"`
+	VotedOn bool   `gorm:"default:false"`
 
 	RestaurantSnapshotID uint
 	MenuItems            []MenuItem `gorm:"foreignKey:RestaurantID"`
+	Votes                []Vote     `gorm:"foreignKey:RestaurantID"`
 }
 
 type MenuItem struct {
@@ -30,4 +31,10 @@ type User struct {
 	ID           uint   `gorm:"primaryKey"`
 	Username     string `gorm:"uniqueIndex"`
 	PasswordHash string
+}
+
+type Vote struct {
+	ID           uint `gorm:"primaryKey"`
+	RestaurantID uint
+	UserID       uint
 }
