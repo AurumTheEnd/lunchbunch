@@ -31,7 +31,7 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 	mux.HandleFunc(
 		constants.IndexPath,
 		Chain(
-			ReusableHandler(appContext, true, appContext.GetIndex, appContext.PostIndex),
+			ReusableHandler(appContext, true, appContext.GetIndex, nil),
 			DisallowSubtreeWrapper(constants.IndexPath)))
 	mux.HandleFunc(constants.RegisterFormPath, ReusableHandler(appContext, true, appContext.GetRegisterForm, appContext.PostRegisterForm))
 	mux.HandleFunc(constants.LoginFormPath, ReusableHandler(appContext, true, appContext.GetLoginForm, appContext.PostLoginForm))
