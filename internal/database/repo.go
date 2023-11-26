@@ -55,6 +55,40 @@ func UpdateVotedOn(db *gorm.DB, formResult *data.NewPollFormDataToServer) error 
 	return result.Error
 }
 
+func SelectSnapshotById(db *gorm.DB, id uint) (models.RestaurantSnapshot, error) {
+	var snapshots models.RestaurantSnapshot
+
+	var result = db.
+		Preload("Restaurants", func(db *gorm.DB) *gorm.DB {
+			return db.Where("voted_on = ?", true).
+				Order("restaurants.name ASC")
+		}).
+		Preload("Restaurants.MenuItems").
+		Preload("Restaurants.Votes").
+		Preload("Restaurants.Votes.User", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("password_hash")
+		}).
+		Preload(clause.Associations).
+		Where("id = ?", id).
+		Take(&snapshots)
+
+	return snapshots, result.Error
+}
+
+func UpdateVote(db *gorm.DB, restaurantId uint, userId uint, shouldCast bool) error {
+	var resultError error
+	if shouldCast {
+		resultError = db.FirstOrCreate(&models.Vote{
+			RestaurantID: restaurantId,
+			UserID:       userId,
+		}).Error
+	} else {
+		resultError = db.Delete(&models.Vote{}, "restaurant_id = ? AND user_id = ?", restaurantId, userId).Error
+	}
+
+	return resultError
+}
+
 func SelectTodaysSnapshots(db *gorm.DB) ([]models.RestaurantSnapshot, error) {
 	var timestamp = time.Now()
 	var dayStart, dayEnd = dayBoundaries(timestamp)
