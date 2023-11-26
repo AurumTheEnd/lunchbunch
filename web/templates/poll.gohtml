@@ -1,4 +1,7 @@
 {{template "layout" .}}
+{{ define "navbar-items" }}
+    <li class="nav-item"><a href="/" class="btn col-2 btn-warning">Refresh</a></li>
+{{ end }}
 {{define "content"}}
 <div>
     {{ if .Snapshot.HasPollStarted }}
