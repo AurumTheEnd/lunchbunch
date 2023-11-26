@@ -14,3 +14,8 @@ func InternalServerError(w http.ResponseWriter, err error) {
 	log.Println(err)
 	http.Error(w, "Internal server error", http.StatusInternalServerError)
 }
+
+func UnauthorizedError(w http.ResponseWriter, err error) {
+	log.Println(err)
+	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+}

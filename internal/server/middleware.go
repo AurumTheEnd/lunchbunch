@@ -1,6 +1,8 @@
 package server
 
 import (
+	"errors"
+	"fmt"
 	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/handlers"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
@@ -10,9 +12,14 @@ import (
 type Middleware func(http.HandlerFunc) http.HandlerFunc
 type AppContextHandler = func(w http.ResponseWriter, req *http.Request, userData *session.Data)
 
-func ReusableHandler(appContext *handlers.AppContext, getHandler AppContextHandler, postHandler AppContextHandler) http.HandlerFunc {
+func ReusableHandler(appContext *handlers.AppContext, allowUnauthorized bool, getHandler AppContextHandler, postHandler AppContextHandler) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		var userData = appContext.UserData(req)
+
+		if !allowUnauthorized && !userData.IsAuthenticated {
+			serverError.UnauthorizedError(w, errors.New(fmt.Sprintf("Unauthorized acces to %s", req.URL)))
+			return
+		}
 
 		switch req.Method {
 		case http.MethodGet:
