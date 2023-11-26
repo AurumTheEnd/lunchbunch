@@ -14,7 +14,7 @@ type AppContext struct {
 	CookieStore *sessions.CookieStore
 }
 
-func (app *AppContext) LoginCookie(username string, req *http.Request, w http.ResponseWriter) (*session.Data, error) {
+func (app *AppContext) LoginCookie(username string, id uint, req *http.Request, w http.ResponseWriter) (*session.Data, error) {
 	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
 	// if getError != nil {
@@ -24,6 +24,7 @@ func (app *AppContext) LoginCookie(username string, req *http.Request, w http.Re
 	var data = &session.Data{
 		IsAuthenticated: true,
 		Username:        username,
+		UserID:          id,
 	}
 
 	s.Values[session.AuthenticationStoreKey] = data

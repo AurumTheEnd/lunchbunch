@@ -46,7 +46,7 @@ func (app *AppContext) PostLoginForm(w http.ResponseWriter, req *http.Request, u
 		return
 	}
 
-	var newUserData, cookieErr = app.LoginCookie(user.Username, req, w)
+	var newUserData, cookieErr = app.LoginCookie(user.Username, user.ID, req, w)
 	if cookieErr != nil {
 		serverError.InternalServerError(w, cookieErr)
 		return
