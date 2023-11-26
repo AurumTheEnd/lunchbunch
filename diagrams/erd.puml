@@ -7,7 +7,7 @@ entity Vote {
   *id: uuid <<generated>>
   --
   *restaurant_id: uuid <<FK>>
-  *poll_id: uuid <<FK>>
+  *user_id: uuid <<FK>>
 }
 
 entity User {
