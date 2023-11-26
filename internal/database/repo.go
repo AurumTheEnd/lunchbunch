@@ -61,6 +61,10 @@ func SelectTodaysSnapshots(db *gorm.DB) ([]models.RestaurantSnapshot, error) {
 	var snapshots []models.RestaurantSnapshot
 
 	var result = db.
+		Preload("Restaurants", func(db *gorm.DB) *gorm.DB {
+			return db.Where("voted_on = ?", true).
+				Order("restaurants.name ASC")
+		}).
 		Preload("Restaurants.MenuItems").
 		Preload("Restaurants.Votes").
 		Preload(clause.Associations).
