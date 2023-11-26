@@ -1,6 +1,7 @@
 package session
 
-const CookieName = "lunchbunch_auth"
+const AuthCookieName = "lunchbunch_auth"
+const SettingsCookieName = "lunchbunch_settings"
 const AuthenticationStoreKey = "authenticated"
 
 type Data struct {

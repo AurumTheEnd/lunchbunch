@@ -15,7 +15,7 @@ type AppContext struct {
 }
 
 func (app *AppContext) LoginCookie(username string, req *http.Request, w http.ResponseWriter) (*session.Data, error) {
-	var s, _ = app.CookieStore.Get(req, session.CookieName)
+	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
 	// if getError != nil {
 	// 	 return nil, getError
@@ -36,7 +36,7 @@ func (app *AppContext) LoginCookie(username string, req *http.Request, w http.Re
 }
 
 func (app *AppContext) LogoutCookie(req *http.Request, w http.ResponseWriter) (*session.Data, error) {
-	var s, _ = app.CookieStore.Get(req, session.CookieName)
+	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
 	// if getError != nil {
 	// 	 return nil, getError
@@ -55,7 +55,7 @@ func (app *AppContext) LogoutCookie(req *http.Request, w http.ResponseWriter) (*
 }
 
 func (app *AppContext) IsAuthenticated(req *http.Request) (bool, error) {
-	var s, _ = app.CookieStore.Get(req, session.CookieName)
+	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
 	// if getError != nil {
 	// 	 return nil, getError
@@ -67,7 +67,7 @@ func (app *AppContext) IsAuthenticated(req *http.Request) (bool, error) {
 }
 
 func (app *AppContext) UserData(req *http.Request) *session.Data {
-	var s, _ = app.CookieStore.Get(req, session.CookieName)
+	var s, _ = app.CookieStore.Get(req, session.AuthCookieName)
 	// ignoring error because Get generates a new session
 	// if getError != nil {
 	// 	 return nil, getError
