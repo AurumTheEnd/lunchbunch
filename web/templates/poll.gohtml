@@ -3,7 +3,6 @@
     <li class="nav-item"><a href="/poll/{{ $.Snapshot.ID }}" class="btn col-2 btn-warning">Refresh</a></li>
 {{ end }}
 {{define "content"}}
-<div>
     {{ if .Snapshot.HasPollStarted }}
         {{ range .Snapshot.Restaurants }}
         <div class="card text-center text-white" id="{{ .ID }}">
@@ -82,5 +81,4 @@
             </div>
         </div>
     {{end}}
-</div>
 {{end}}
