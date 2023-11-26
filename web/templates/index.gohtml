@@ -22,7 +22,7 @@
             {{ range .Restaurants }}
             <div>{{.Name}}</div>
             {{end}}
-            <a href="/poll/{{ .ID }}/" class="stretched-link"></a>
+            <a href="/poll/{{ .ID }}" class="stretched-link"></a>
         </div>
         <div class="card-footer">
             Created by {{ .Creator.Username }}
