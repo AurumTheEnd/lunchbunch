@@ -31,7 +31,7 @@ func RenderRegister(w http.ResponseWriter, usernamePrefill string, userData *ses
 		Username:     usernamePrefill,
 		Errors:       errors,
 		TargetUrl:    constants.RegisterFormPath,
-		TargetMethod: "POST",
+		TargetMethod: http.MethodPost,
 	}
 
 	if renderError := parsedTemplate.Execute(w, data); renderError != nil {

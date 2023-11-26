@@ -31,7 +31,7 @@ func RenderLoginForm(w http.ResponseWriter, username string, userData *session.D
 		Errors:       errors,
 		Username:     username,
 		TargetUrl:    constants.LoginFormPath,
-		TargetMethod: "POST",
+		TargetMethod: http.MethodPost,
 	}
 
 	if errors != nil && len(errors) != 0 {
