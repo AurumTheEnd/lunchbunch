@@ -22,7 +22,6 @@ func HasDayBeenPopulated(db *gorm.DB, timestamp time.Time) (answer bool) {
 	var dayStart, dayEnd = dayBoundaries(timestamp)
 
 	db.Where("datetime >= ?", dayStart).Where("datetime <= ?", dayEnd).First(&snapshot)
-	fmt.Println(snapshot)
 	return snapshot.ID != 0
 }
 
