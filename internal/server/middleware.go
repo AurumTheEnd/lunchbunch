@@ -17,7 +17,7 @@ func ReusableHandler(appContext *handlers.AppContext, allowUnauthorized bool, ge
 		var userData = appContext.UserData(req)
 
 		if !allowUnauthorized && !userData.IsAuthenticated {
-			serverError.UnauthorizedError(w, errors.New(fmt.Sprintf("Unauthorized acces to %s", req.URL)))
+			utils.UnauthorizedError(w, errors.New(fmt.Sprintf("Unauthorized acces to %s", req.URL)))
 			return
 		}
 
@@ -36,7 +36,7 @@ func ReusableHandler(appContext *handlers.AppContext, allowUnauthorized bool, ge
 			return
 		}
 
-		serverError.MethodNotAllowed(w, req.Method)
+		utils.MethodNotAllowed(w, req.Method)
 	}
 }
 

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
-	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
@@ -36,7 +35,7 @@ func (app *AppContext) PostLoginForm(w http.ResponseWriter, req *http.Request, u
 				[]string{fmt.Sprintf("User '%s' doesn't exist.", loginFormData.Username)},
 			)
 		} else {
-			serverError.InternalServerError(w, dbError)
+			utils.InternalServerError(w, dbError)
 		}
 		return
 	}
@@ -48,7 +47,7 @@ func (app *AppContext) PostLoginForm(w http.ResponseWriter, req *http.Request, u
 
 	var newUserData, cookieErr = app.LoginCookie(user.Username, user.ID, req, w)
 	if cookieErr != nil {
-		serverError.InternalServerError(w, cookieErr)
+		utils.InternalServerError(w, cookieErr)
 		return
 	}
 

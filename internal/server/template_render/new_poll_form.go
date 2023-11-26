@@ -3,7 +3,7 @@ package template_render
 import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
 	formData "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
-	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/web/templates"
 	"net/http"
@@ -20,7 +20,7 @@ type NewPollFormTemplate struct {
 func RenderNewPollForm(w http.ResponseWriter, formData formData.NewPollFormDataToClient, userData *session.Data, errors []string) {
 	var parsedTemplate, parseErr = templates.ParseTemplateWithLayout("new_poll_form")
 	if parseErr != nil {
-		serverError.InternalServerError(w, parseErr)
+		utils.InternalServerError(w, parseErr)
 		return
 	}
 
@@ -39,7 +39,7 @@ func RenderNewPollForm(w http.ResponseWriter, formData formData.NewPollFormDataT
 	}
 
 	if renderError := parsedTemplate.Execute(w, data); renderError != nil {
-		serverError.InternalServerError(w, renderError)
+		utils.InternalServerError(w, renderError)
 		return
 	}
 }

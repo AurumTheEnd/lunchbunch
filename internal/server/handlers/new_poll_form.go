@@ -5,8 +5,8 @@ import (
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/scraping"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
-	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
+	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
 	"net/http"
 )
@@ -15,7 +15,7 @@ func (app *AppContext) GetNewPollForm(w http.ResponseWriter, _ *http.Request, us
 	// scrape new data!
 	var snapshot, scrapeError = scraping.Scrape(app.C)
 	if scrapeError != nil {
-		serverError.InternalServerError(w, scrapeError)
+		utils.InternalServerError(w, scrapeError)
 		return
 	}
 
@@ -24,7 +24,7 @@ func (app *AppContext) GetNewPollForm(w http.ResponseWriter, _ *http.Request, us
 
 	// save scraped new data to db
 	if dbError := database.CreateScraped(app.Db, &snapshot); dbError != nil {
-		serverError.InternalServerError(w, dbError)
+		utils.InternalServerError(w, dbError)
 		return
 	}
 
@@ -39,7 +39,7 @@ func (app *AppContext) PostNewPollForm(w http.ResponseWriter, req *http.Request,
 	// parse form with checkboxes
 	var formResult, err = data.FromRequest(req)
 	if err != nil {
-		serverError.BadRequestError(w, err)
+		utils.BadRequestError(w, err)
 		return
 	}
 
@@ -47,7 +47,7 @@ func (app *AppContext) PostNewPollForm(w http.ResponseWriter, req *http.Request,
 	if len(formResult.Checked) == 0 {
 		var snapshotAgain, dbError = database.SelectSnapshotWith(app.Db, formResult.SnapshotID)
 		if dbError != nil {
-			serverError.InternalServerError(w, dbError)
+			utils.InternalServerError(w, dbError)
 			return
 		}
 
@@ -59,7 +59,7 @@ func (app *AppContext) PostNewPollForm(w http.ResponseWriter, req *http.Request,
 	// update DB: restaurant.voted_on (for later filtering to display in poll)
 	var dbError = database.UpdateVotedOn(app.Db, formResult)
 	if dbError != nil {
-		serverError.InternalServerError(w, dbError)
+		utils.InternalServerError(w, dbError)
 		return
 	}
 

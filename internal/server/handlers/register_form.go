@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/data"
-	serverError "gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/error"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/utils"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/session"
@@ -29,7 +28,7 @@ func (app *AppContext) PostRegisterForm(w http.ResponseWriter, req *http.Request
 
 	var hashedPassword, hashError = utils.HashPassword(registerData.Password)
 	if hashError != nil {
-		serverError.InternalServerError(w, hashError)
+		utils.InternalServerError(w, hashError)
 		return
 	}
 
@@ -43,7 +42,7 @@ func (app *AppContext) PostRegisterForm(w http.ResponseWriter, req *http.Request
 				[]string{fmt.Sprintf("Username '%s' is already taken.", registerData.Username)},
 			)
 		} else {
-			serverError.InternalServerError(w, dbError)
+			utils.InternalServerError(w, dbError)
 		}
 		return
 	}
