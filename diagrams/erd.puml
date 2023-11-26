@@ -22,6 +22,7 @@ entity RestaurantSnapshot {
   --
   *creator_id: uuid <<FK>
   *datetime: timestamptz
+  *has_poll_started: bool
 }
 
 entity Restaurant {

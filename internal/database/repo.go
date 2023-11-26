@@ -46,6 +46,7 @@ func SelectTodaysSnapshots(db *gorm.DB) ([]models.RestaurantSnapshot, error) {
 		Preload(clause.Associations).
 		Where("datetime >= ?", dayStart).
 		Where("datetime <= ?", dayEnd).
+		Where("has_poll_started = TRUE").
 		Find(&snapshots)
 
 	return snapshots, result.Error

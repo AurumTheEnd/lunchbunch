@@ -5,10 +5,11 @@ import (
 )
 
 type RestaurantSnapshot struct {
-	ID       uint `gorm:"primaryKey"`
-	Datetime time.Time
+	ID             uint      `gorm:"primaryKey"`
+	Datetime       time.Time `gorm:"not null"`
+	HasPollStarted bool      `gorm:"not null,default:false"`
 
-	CreatorID uint
+	CreatorID uint `gorm:"not null"`
 	Creator   User
 
 	Restaurants []Restaurant `gorm:"foreignKey:RestaurantSnapshotID"`
@@ -16,8 +17,8 @@ type RestaurantSnapshot struct {
 
 type Restaurant struct {
 	ID      uint   `gorm:"primaryKey"`
-	Name    string `gorm:"index"`
-	VotedOn bool   `gorm:"default:false"`
+	Name    string `gorm:"not null,index"`
+	VotedOn bool   `gorm:"not null,default:false"`
 
 	RestaurantSnapshotID uint
 	MenuItems            []MenuItem `gorm:"foreignKey:RestaurantID"`
@@ -26,7 +27,7 @@ type Restaurant struct {
 
 type MenuItem struct {
 	ID    uint   `gorm:"primaryKey"`
-	Name  string `gorm:"index"`
+	Name  string `gorm:"not null,index"`
 	Price int
 
 	RestaurantID uint
@@ -34,12 +35,12 @@ type MenuItem struct {
 
 type User struct {
 	ID           uint   `gorm:"primaryKey"`
-	Username     string `gorm:"uniqueIndex"`
-	PasswordHash string
+	Username     string `gorm:"not null,uniqueIndex"`
+	PasswordHash string `gorm:"not null"`
 }
 
 type Vote struct {
 	ID           uint `gorm:"primaryKey"`
-	RestaurantID uint
-	UserID       uint
+	RestaurantID uint `gorm:"not null"`
+	UserID       uint `gorm:"not null"`
 }
