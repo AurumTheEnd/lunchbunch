@@ -108,35 +108,20 @@ li.nav-item a {
     padding-left: 0;
 }
 
-.timetable-day {
-    table-layout: fixed;
-    width: 100%;
-}
-
 .progress-bar {
-    transition: 0.5s;
+    animation: progressBar 1s ease-in-out;
+    animation-fill-mode:both;
 }
 
-.whole-page-button {
-    padding: 20px!important;
-    font-size: 20px!important;
-    border-radius: 0!important;
-    width: 100% !important;
+@keyframes progressBar {
+    0% { width: 0; }
+    100% { width: 100%; }
 }
 
-.chosen-container {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 5px white solid;
+.accordion-button:not(.collapsed) .bi-chevron-down::before {
+    transform: var(--bs-accordion-btn-icon-transform)
 }
 
-.chosen-choices {
-    border: 0 !important;
-
-}
-
-.chosen-container-active .chosen-choices {
-    border: 0 !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
+.accordion-button .bi-chevron-down::before {
+    transition: var(--bs-accordion-btn-icon-transition)
 }
