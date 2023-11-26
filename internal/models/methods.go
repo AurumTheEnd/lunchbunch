@@ -37,6 +37,20 @@ func totalVotesString(count uint) string {
 	return "votes"
 }
 
+func (receiver RestaurantSnapshot) PercentageOfVotes(restaurant Restaurant) uint {
+	return restaurant.TotalVotes() / receiver.TotalVotes() * 100
+}
+
 func (receiver RestaurantSnapshot) DateTimeCreated() string {
 	return receiver.Datetime.Format(time.DateTime)
+}
+
+func (receiver Restaurant) HasUserVoted(userID uint) bool {
+	for _, vote := range receiver.Votes {
+		if vote.UserID == userID {
+			return true
+		}
+	}
+
+	return false
 }
