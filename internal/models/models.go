@@ -42,5 +42,7 @@ type User struct {
 type Vote struct {
 	ID           uint `gorm:"primaryKey"`
 	RestaurantID uint `gorm:"not null"`
-	UserID       uint `gorm:"not null"`
+
+	UserID uint `gorm:"not null"`
+	User   User
 }
