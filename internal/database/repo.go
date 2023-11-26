@@ -46,8 +46,9 @@ func UpdateVotedOn(db *gorm.DB, formResult *data.NewPollFormDataToServer) error 
 		Where("id IN ?", formResult.Checked).
 		Update("voted_on", "TRUE")
 
-	tx.Where(&models.RestaurantSnapshot{ID: formResult.SnapshotID}).
-		Update("has_poll_started", "TRUE")
+	tx.Model(&models.RestaurantSnapshot{}).
+		Where("id = ?", formResult.SnapshotID).
+		Update("has_poll_started", true)
 
 	var result = tx.Commit()
 
