@@ -1,0 +1,54 @@
+{{template "layout" .}}
+{{define "content"}}
+<form
+        action="/poll/new"
+        method="post"
+        name="new_poll_form"
+        class="d-flex flex-column gap-1 card text-white p-2"
+>
+    <input type="hidden" id="snapshot_id" name="snapshot_id" value="{{ .SnapshotID }}" />
+    {{ range .Errors }}
+        <div class="alert alert-danger mb-0">
+            {{ . }}
+        </div>
+    {{end}}
+    <span class="h2">Create new poll</span>
+    <span class="form-label">Select restaurants to be included in the poll:</span>
+    {{ range .Checkboxes }}
+        <div>
+            <input
+                type="checkbox"
+                id="{{ .ID }}"
+                name="checked"
+                value="{{ .ID }}"
+                {{ if .Checked }}{{ "checked='checked'" }}{{end}}
+                class="form-check-input"
+            />
+            <label
+                for="{{ .ID }}"
+                class="form-check-label"
+            >
+                {{ .Name }}
+            </label>
+        </div>
+    {{end}}
+
+    <div>
+        <input
+                type="checkbox"
+                id="should_remember"
+                name="should_remember"
+                value="selected"
+                class="form-check-input"
+        />
+        <label
+                for="should_remember"
+                class="form-check-label"
+        >
+            Save the choices for future polls created by you
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Create poll</button>
+</form>
+{{end}}

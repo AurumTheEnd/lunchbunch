@@ -36,6 +36,7 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 	mux.HandleFunc(constants.RegisterFormPath, ReusableHandler(appContext, true, appContext.GetRegisterForm, appContext.PostRegisterForm))
 	mux.HandleFunc(constants.LoginFormPath, ReusableHandler(appContext, true, appContext.GetLoginForm, appContext.PostLoginForm))
 	mux.HandleFunc(constants.LogoutPath, ReusableHandler(appContext, false, appContext.GetLogout, nil))
+	mux.HandleFunc(constants.NewPollFormPath, ReusableHandler(appContext, false, appContext.GetNewPollForm, appContext.PostNewPollForm))
 
 	var server = http.Server{
 		Addr:         fmt.Sprintf("%s:%s", myEnv["SERVER_HOST"], myEnv["SERVER_PORT"]),
