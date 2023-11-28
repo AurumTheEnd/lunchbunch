@@ -39,7 +39,7 @@ func StartServer(db *gorm.DB, store *sessions.CookieStore) (err error) {
 	mux.HandleFunc(constants.NewPollFormPath, ReusableHandler(appContext, false, appContext.GetNewPollForm, appContext.PostNewPollForm))
 	mux.HandleFunc(constants.PollPathPrefix,
 		Chain(
-			ReusableHandler(appContext, false, appContext.GetPoll, appContext.PostPoll),
+			ReusableHandler(appContext, true, appContext.GetPoll, appContext.PostPoll),
 			AllowIdSuffixOnly(constants.PollPathPrefix)))
 
 	var server = http.Server{

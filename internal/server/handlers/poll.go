@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/database"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/constants"
 	"gitlab.fi.muni.cz/xhrdlic3/lunchbunch/internal/server/template_render"
@@ -27,6 +28,11 @@ func (app *AppContext) GetPoll(w http.ResponseWriter, req *http.Request, userDat
 }
 
 func (app *AppContext) PostPoll(w http.ResponseWriter, req *http.Request, userData *session.Data) {
+	if !userData.IsAuthenticated {
+		utils.BadRequestError(w, errors.New("cannot cast vote without being logged in"))
+		return
+	}
+
 	var snapshotId, trimErr = utils.TrimPathToUint(req.URL.Path, constants.PollPathPrefix)
 	if trimErr != nil {
 		utils.BadRequestError(w, trimErr)
