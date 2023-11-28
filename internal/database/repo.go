@@ -78,7 +78,7 @@ func SelectSnapshotById(db *gorm.DB, id uint) (models.RestaurantSnapshot, error)
 func UpdateVote(db *gorm.DB, restaurantId uint, userId uint, shouldCast bool) error {
 	var resultError error
 	if shouldCast {
-		resultError = db.FirstOrCreate(&models.Vote{
+		resultError = db.Create(&models.Vote{
 			RestaurantID: restaurantId,
 			UserID:       userId,
 		}).Error
