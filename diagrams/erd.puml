@@ -7,39 +7,39 @@ scale 1920 width
 scale 1080 height
 
 entity Vote {
-  *id: uuid <<generated>>
+  *id: bigint <<generated>>
   --
-  *restaurant_id: uuid <<FK>>
-  *user_id: uuid <<FK>>
+  *restaurant_id: bigint <<FK>>
+  *user_id: bigint <<FK>>
 }
 
 entity User {
-  *id: uuid <<generated>>
+  *id: bigint <<generated>>
   --
   *username: text <<unique>>
   *password_hash: text
 }
 
 entity RestaurantSnapshot {
-  *id: uuid <<generated>>
+  *id: bigint <<generated>>
   --
-  *creator_id: uuid <<FK>
+  *creator_id: bigint <<FK>
   *datetime: timestamptz
   *has_poll_started: bool
 }
 
 entity Restaurant {
-  *id: uuid <<generated>>
+  *id: bigint <<generated>>
   --
   *name: text
-  *restaurant_snapshot_id: uuid <<FK>>
+  *restaurant_snapshot_id: bigint <<FK>>
   *voted_on: bool
 }
 
 entity MenuItem {
-  *id: uuid <<generated>>
+  *id: bigint <<generated>>
   --
-  *restaurant_id: uuid <<FK>>
+  *restaurant_id: bigint <<FK>>
   *name: text
   price: money
 }
