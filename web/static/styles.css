@@ -33,12 +33,10 @@ li.nav-item a {
 
 .progress-bar {
     animation: progressBar 1s ease-in-out;
-    animation-fill-mode:both;
 }
 
 @keyframes progressBar {
     0% { width: 0; }
-    100% { width: 100%; }
 }
 
 .accordion-button:not(.collapsed) .bi-chevron-down::before {

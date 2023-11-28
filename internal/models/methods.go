@@ -38,7 +38,9 @@ func totalVotesString(count uint) string {
 }
 
 func (receiver RestaurantSnapshot) PercentageOfVotes(restaurant Restaurant) uint {
-	return restaurant.TotalVotes() / receiver.TotalVotes() * 100
+	var snapshotTotal = receiver.TotalVotes()
+	var restTotal = restaurant.TotalVotes()
+	return uint(float64(restTotal) / float64(snapshotTotal) * 100.0)
 }
 
 func (receiver RestaurantSnapshot) DateTimeCreated() string {
