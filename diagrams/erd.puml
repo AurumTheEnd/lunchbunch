@@ -3,6 +3,9 @@
 hide circle
 skinparam linetype ortho
 
+scale 1920 width
+scale 1080 height
+
 entity Vote {
   *id: uuid <<generated>>
   --
