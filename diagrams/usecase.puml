@@ -5,9 +5,6 @@ skinparam arrowColor Black
 
 'skinparam linetype ortho
 
-scale 1920 width
-scale 1080 height
-
 skinparam usecase {
     BorderColor Black
     BackgroundColor<< specification >> Strategy
@@ -26,19 +23,28 @@ rectangle LunchBunch {
 
     usecase "Create new poll"
     usecase "Vote in existing poll"
-    usecase "View poll results"
+    usecase "View one poll"
+    usecase "View who voted"
+    usecase "View all polls"
 
     (Create new poll)-[hidden]u-(Vote in existing poll)
-    (Vote in existing poll)-[hidden]u-(View poll results)
+    (Vote in existing poll)-[hidden]u-(View one poll)
 }
+:unregUser: -[hidden]- :regUser:
 
 :unregUser: -r- (Register)
+:unregUser: -l- (View one poll)
+:unregUser: -l- (View all polls)
 
 :regUser: -- (Login)
+:regUser: -l- (View one poll)
+:regUser: -l- (View all polls)
 
 :logUser: -l- (Logout)
 :logUser: -l- (Create new poll)
 :logUser: -l- (Vote in existing poll)
-:logUser: -l- (View poll results)
+:logUser: -l- (View one poll)
+:logUser: -l- (View who voted)
+:logUser: -l- (View all polls)
 
 @enduml
