@@ -1,0 +1,55 @@
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+scale 1920 width
+scale 1080 height
+
+entity Vote {
+  *id: bigint <<generated>>
+  --
+  *restaurant_id: bigint <<FK>>
+  *user_id: bigint <<FK>>
+}
+
+entity User {
+  *id: bigint <<generated>>
+  --
+  *username: text <<unique>>
+  *password_hash: text
+}
+
+entity RestaurantSnapshot {
+  *id: bigint <<generated>>
+  --
+  *creator_id: bigint <<FK>
+  *datetime: timestamptz
+  *has_poll_started: bool
+}
+
+entity Restaurant {
+  *id: bigint <<generated>>
+  --
+  *name: text
+  *restaurant_snapshot_id: bigint <<FK>>
+  *voted_on: bool
+}
+
+entity MenuItem {
+  *id: bigint <<generated>>
+  --
+  *restaurant_id: bigint <<FK>>
+  *name: text
+  price: money
+}
+
+Restaurant }o-up-|| RestaurantSnapshot
+'Restaurant ||-left-o{ RestaurantSnapshot
+MenuItem }o-up-|| Restaurant
+
+RestaurantSnapshot }o-right-----|| User : < creates
+User ||-o{ Vote : > casts
+Restaurant ||-o{ Vote
+
+@enduml

@@ -1,0 +1,48 @@
+body {
+    background-color: #112D4E !important;
+}
+
+nav {
+    background-color: #3F72AF !important;
+}
+
+.card {
+    background-color: #3F72AF !important;
+}
+
+.accordion-button, .accordion-item {
+    background-color: #3F72AF !important;
+    color: white!important;
+}
+
+.accordion-button::after {
+    display: none;
+}
+
+.all_votes_card {
+    transition: 0.3s;
+}
+
+.all_votes_card:hover {
+    background-color: #112D4E !important;
+}
+
+li.nav-item a {
+    width: 90px !important;
+}
+
+.progress-bar {
+    animation: progressBar 1s ease-in-out;
+}
+
+@keyframes progressBar {
+    0% { width: 0; }
+}
+
+.accordion-button:not(.collapsed) .bi-chevron-down::before {
+    transform: var(--bs-accordion-btn-icon-transform)
+}
+
+.accordion-button .bi-chevron-down::before {
+    transition: var(--bs-accordion-btn-icon-transition)
+}

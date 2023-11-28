@@ -1,0 +1,50 @@
+@startuml
+
+skinparam actorBorderColor Black
+skinparam arrowColor Black
+
+'skinparam linetype ortho
+
+skinparam usecase {
+    BorderColor Black
+    BackgroundColor<< specification >> Strategy
+    BackgroundColor<< activity >> Application
+}
+
+actor UnregisteredUser as unregUser
+actor RegisteredUser as regUser
+actor LoggedInUser as logUser
+
+rectangle LunchBunch {
+    usecase Register
+    usecase Login
+    usecase Logout
+    (Register)-[hidden]u-(Login)
+
+    usecase "Create new poll"
+    usecase "Vote in existing poll"
+    usecase "View one poll"
+    usecase "View who voted"
+    usecase "View all polls"
+
+    (Create new poll)-[hidden]u-(Vote in existing poll)
+    (Vote in existing poll)-[hidden]u-(View one poll)
+}
+:unregUser: -[hidden]- :regUser:
+
+:unregUser: -r- (Register)
+:unregUser: -l- (View one poll)
+:unregUser: -l- (View all polls)
+
+:regUser: -- (Login)
+:regUser: -l- (View one poll)
+:regUser: -l- (View all polls)
+
+:logUser: -l- (Logout)
+:logUser: -l- (Create new poll)
+:logUser: -l- (Vote in existing poll)
+:logUser: -l- (View one poll)
+:logUser: -l- (View who voted)
+:logUser: -l- (View all polls)
+
+@enduml

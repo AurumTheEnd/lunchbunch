@@ -1,0 +1,96 @@
+{{template "layout" .}}
+{{ define "navbar-items" }}
+    <li class="nav-item"><a href="/poll/{{ $.Snapshot.ID }}" class="btn col-2 btn-warning">Refresh</a></li>
+{{ end }}
+{{define "content"}}
+    {{ if .Snapshot.HasPollStarted }}
+        {{ range .Snapshot.Restaurants }}
+        <div class="card text-center text-white" id="{{ .ID }}">
+            <div class="card-header">
+                {{ .Name }}
+            </div>
+            <div class="card-body">
+                {{ range .MenuItems }}
+                    <p>{{ .Name }}{{ if ne .Price -1 }} - {{ .Price }} Kč{{end}}</p>
+                {{else}}
+                    <span class="fst-italic">No menu is available</span>
+                {{end}}
+
+                {{ if $.UserData.IsAuthenticated }}
+                <form action="/poll/{{ $.Snapshot.ID }}" method="POST">
+                    <input type="hidden" id="restaurant_id" name="restaurant_id" value="{{ .ID }}" />
+                    <input
+                        type="submit"
+                        class="btn btn-success"
+                        id="vote-button-{{ .ID }}"
+                        name="cast"
+                        value="Vote for this menu"
+                        {{ if .HasUserVoted $.UserData.UserID }}disabled{{end}}
+                    >
+
+                    <input
+                        type="submit"
+                        class="btn btn-danger"
+                        id="vote-button-{{ .ID }}"
+                        name="uncast"
+                        value="Remove vote"
+                        {{ if not (.HasUserVoted $.UserData.UserID) }}disabled{{end}}
+                    >
+                </form>
+                {{end}}
+            </div>
+            <div class="progress">
+                {{ if eq $.Snapshot.TotalVotes 0 }}
+                <div class="progress-bar" role="progressbar" style="width: 0"></div>
+                {{ else }}
+                <div class="progress-bar" role="progressbar" style="width: {{ $.Snapshot.PercentageOfVotes . }}%"></div>
+                {{ end }}
+            </div>
+            <div class="card-footer p-0" id="footer-voters-{{ .ID }}">
+                {{ if $.UserData.IsAuthenticated }}
+                <div class="accordion accordion-flush" id="accordion-one-poll-{{ .ID }}">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-heading-{{ .ID }}">
+                            <button class="accordion-button collapsed shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ .ID }}" aria-expanded="false" aria-controls="flush-collapse-{{ .ID }}">
+                                <span class="text-center text-white w-100 m-0">
+                                    <i class="bi-chevron-down mx-2"></i>
+                                    <span id="vote-count-{{ .ID }}">
+                                        {{ .TotalVotes }}
+                                        {{ .TotalVotesString }}
+                                    </span>
+                                    <i class="bi-chevron-down mx-2"></i>
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="flush-collapse-{{ .ID }}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{ .ID }}" data-bs-parent="#accordion-one-poll-{{ .ID }}">
+                            <div class="accordion-body" id="voters-{{ .ID }}">
+                                {{ range .Votes }}
+                                    <div>{{ .User.Username }}</div>
+                                {{else}}
+                                    This restaurant has no votes
+                                {{end}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{else}}
+                <div class="text-center text-white w-100 m-2">
+                    <span id="vote-count-{{ .ID }}">
+                        {{ .TotalVotes }}
+                        {{ .TotalVotesString }}
+                    </span>
+                </div>
+                {{end}}
+            </div>
+        </div>
+        {{else}}
+            <span>This poll has no restaurants in it</span>
+        {{end}}
+    {{else}}
+        <div class="card text-center text-white">
+            <div class="card-body">
+                This is an inactive poll
+            </div>
+        </div>
+    {{end}}
+{{end}}
